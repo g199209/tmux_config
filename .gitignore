@@ -1,0 +1,5 @@
+# 插件由 setup.sh 安装到 ~/.tmux/plugins,不纳入本仓库
+plugins/
+# 本机私有覆盖(想加机器特定配置可在 tmux.conf 末尾 source 它)
+*.local
+.DS_Store
