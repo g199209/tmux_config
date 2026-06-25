@@ -7,7 +7,8 @@
 - **主题**:[catppuccin](https://github.com/catppuccin/tmux) **Mocha**,圆角药丸 tab 栏,放在**顶部**。
 - **不用背键位**:[tmux-which-key](https://github.com/alexwforsythe/tmux-which-key),`prefix + Space` 弹出可下钻的动作菜单。
 - **免 prefix 切 pane**:`Alt + h/j/k/l`(或 `Alt + 方向键`),照搬 zellij。
-- **zellij 式模式**:`prefix p` 进 PANE 模式、`prefix t` 进 TAB 模式,进入后单键连续操作,`Esc` 退出,顶栏显示当前模式。
+- **zellij 式模式**:`Ctrl+p` 进 PANE 模式、`Ctrl+w` 进 TAB(window)模式,进入后单键连续操作(动作键做完自动退,移动键留在模式里),`Esc` 退出,顶栏显示当前模式 + 可用键。
+- **浮动终端**:[tmux-floax](https://github.com/omerxx/tmux-floax),`Alt+f` 开/关浮动终端,内容常驻(对齐 zellij 的 Alt+f)。
 - **滚动条**:`modal` —— 仅滚动时在右侧出现,平时不占视觉(需 tmux ≥ 3.5)。
 - 鼠标、vi 复制键位、50k 回滚、真彩色等常用项已配好。
 
@@ -43,6 +44,7 @@ tmux
 | which-key 菜单 | `prefix` `Space` |
 | 切 pane(免 prefix) | `Alt+h/j/k/l` 或 `Alt+方向` |
 | 新建 pane | `Alt+n` |
+| 浮动终端 开/关 | `Alt+f`(内容常驻) |
 | 左右 / 上下 分屏 | `prefix` `\|` / `-` |
 | 新建窗口(≈ tab) | `prefix` `c` |
 | 放大/还原 pane | `prefix` `z` |

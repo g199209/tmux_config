@@ -48,6 +48,7 @@ clone_plugin() {  # url  dir  [ref]
 clone_plugin https://github.com/tmux-plugins/tpm            "$PLUGINS_DIR/tpm"
 clone_plugin https://github.com/catppuccin/tmux             "$PLUGINS_DIR/tmux"            v2.3.0
 clone_plugin https://github.com/alexwforsythe/tmux-which-key "$PLUGINS_DIR/tmux-which-key"
+clone_plugin https://github.com/omerxx/tmux-floax            "$PLUGINS_DIR/tmux-floax"
 
 # which-key 的 PyYAML 是子模块;上面 --recurse-submodules 已处理,这里兜底确认
 WK="$PLUGINS_DIR/tmux-which-key"
