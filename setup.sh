@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # tmux_config setup —— 在新机器上:clone 本仓库后运行本脚本即可。
-# 只做两件事:① 软链 ~/.tmux.conf -> 本仓库的 tmux.conf ② 安装插件。
+# 做三件事:① 软链 ~/.tmux.conf -> 本仓库的 tmux.conf ② 安装插件
+# ③ 给 tmux-256color 补 SGR 鼠标(1006)能力(见下文)。
 # 幂等:可重复运行。
 set -euo pipefail
 
@@ -57,7 +58,36 @@ if [ -f "$WK/.gitmodules" ] && [ ! -e "$WK/plugin/pyyaml/lib/yaml/__init__.py" ]
   git -C "$WK" submodule update --init --recursive
 fi
 
+# 3) 给 tmux-256color 补 SGR 鼠标 (1006) 能力
+#    系统 tmux-256color 没有完整的 SGR 鼠标能力,导致 vim/less/htop 等用 terminfo 启用鼠标
+#    的程序回退到老式 1000 编码:在宽窗口里点击坐标 > 95 时字节 > 127,被 UTF-8
+#    拆成多字节,3 字节鼠标协议散架,残余字节漏到 shell 被回显成一串乱码
+#    (Windows Terminal 下尤其常见)。补上 kmous/XM/xm 后程序改用全 ASCII 的 SGR(1006)
+#    编码,问题消失。幂等:已具备完整 SGR 鼠标能力则跳过。
+if command -v infocmp >/dev/null 2>&1; then
+  current_ti="$(infocmp -x -1 tmux-256color 2>/dev/null || true)"
+  if printf '%s\n' "$current_ti" | grep -q 'kmous=\\E\[<,' &&
+     printf '%s\n' "$current_ti" | grep -q 'XM=' &&
+     printf '%s\n' "$current_ti" | grep -q 'xm='; then
+    say "tmux-256color 已具备完整 SGR 鼠标 (1006),跳过"
+  else
+    say "为 tmux-256color 注入 SGR 鼠标 (1006) 能力 -> ~/.terminfo"
+    tmp_terminfo="$(mktemp)"
+    {
+      infocmp -x tmux-256color 2>/dev/null
+      cat <<'EOF'
+	kmous=\E[<, XM=\E[?1006;1000%?%p1%{1}%=%th%el%;,
+	xm=\E[<%i%p3%d;%p1%d;%p2%d;%?%p4%tM%em%;,
+EOF
+    } > "$tmp_terminfo"
+    tic -x -o "$HOME/.terminfo" "$tmp_terminfo"
+    rm -f "$tmp_terminfo"
+  fi
+fi
+
 echo
 say "完成 ✅  启动 tmux 即可;若已在 tmux 中,按 prefix(Ctrl+b)再按 r 重载。"
 echo "    提示:终端字体需含 Nerd Font 图标(推荐 Maple Mono NF CN),"
 echo "          否则状态栏的 session/时钟等图标会显示成方块。"
+echo "    鼠标:新装的 terminfo 只对启动后新开的程序生效,已有的 vim/less 等"
+echo "          需退出重开一次才会用上 SGR 鼠标。"
