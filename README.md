@@ -47,7 +47,7 @@ tmux
 | 新建窗口(≈ tab) | `prefix` `c` |
 | 放大/还原 pane | `prefix` `z` |
 | PANE 模式(免 prefix) | `Ctrl+p` → `hjkl` 移动 / `n s x z`(做完即退)/ `Esc` 退 |
-| TAB 模式(免 prefix) | `Ctrl+t` → `h l` 切换 / `n x r`(做完即退)/ `Esc` 退 |
+| TAB 模式(免 prefix) | `Ctrl+w`(w=window) → `h l` 切换 / `n x r`(做完即退)/ `Esc` 退 |
 | 重载配置 | `prefix` `r` |
 | 脱离 / 重连 | `prefix` `d` / `tmux a` |
 
