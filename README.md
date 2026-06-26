@@ -10,7 +10,7 @@ My personal tmux config — aiming to feel "good out of the box, like zellij": a
 - **zellij-style modes**: `Ctrl+p` enters PANE mode, `Ctrl+w` enters TAB (window) mode. Inside a mode you operate with single keys (action keys auto-exit when done, movement keys stay in the mode); `Esc` exits. The top bar shows the current mode + available keys.
 - **Floating terminal**: [tmux-floax](https://github.com/omerxx/tmux-floax) — `Alt+f` toggles a floating terminal whose content persists (mirrors zellij's Alt+f).
 - **Scrollbar**: `modal` — appears on the right only while scrolling, otherwise out of sight (needs tmux ≥ 3.5).
-- Mouse, vi copy-mode keys, 50k scrollback, true color, and other common bits are pre-configured.
+- Mouse support, vi copy-mode keys, 50k scrollback, true color, and other common bits are pre-configured.
 
 ## Requirements
 
@@ -53,7 +53,7 @@ tmux
 | Reload config | `prefix` `r` |
 | Detach / reattach | `prefix` `d` / `tmux a` |
 
-The mouse works throughout: click to focus a pane, drag borders to resize, scroll to page through history (the scrollbar appears on the right only while scrolling).
+The mouse works throughout: click to focus a pane, drag borders to resize, scroll to page through history (the scrollbar appears on the right only while scrolling). Use `Shift` + drag for terminal-native text selection.
 
 ### Floating terminal (floax) controls
 
